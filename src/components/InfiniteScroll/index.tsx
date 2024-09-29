@@ -8,6 +8,7 @@ interface InfiniteScrollProps {
   hasMore: boolean;
   loading: boolean;
   children: (items: any[]) => React.ReactNode;
+  reset:any
 }
 
 const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
@@ -15,6 +16,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   hasMore,
   loading,
   children,
+  reset
 }) => {
   const [items, setItems] = useState<any[]>([]);
   const pageRef = useRef(1);
@@ -26,6 +28,16 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
     setItems((prevItems) => [...prevItems, ...newItems]);
     pageRef.current += 1;
   };
+
+  const resetItems = async () => {
+    const freshItems = await fetchData(1);
+    setItems([...freshItems]);
+    pageRef.current = 1;
+  }
+
+  useEffect(() => {
+    resetItems();
+  },[reset])
 
   const handleScroll = useCallback(
     debounce(() => {

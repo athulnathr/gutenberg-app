@@ -47,7 +47,7 @@ const GenreListing = () => {
                 {
                     BOOK_TYPES?.map((book) => <GridItem key={book.id}>
                         <Button onClick={() => handleSelectBookType(book.id)}>
-                            <ButtonIcon>I</ButtonIcon>
+                            <ButtonIcon>{<book.icon/>}</ButtonIcon>
                             {book.label}
                             <ButtonIcon>I</ButtonIcon>
                         </Button>

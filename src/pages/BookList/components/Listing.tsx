@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react'
+import React, { FC, useCallback, useEffect, useState } from 'react'
 import { GridContainer, GridItem } from '../../../components/Grid'
 import Book from './Book'
 import { FetchBookResponse } from '../../../types/Books'
@@ -7,6 +7,8 @@ import styled from 'styled-components'
 import InfiniteScroll from '../../../components/InfiniteScroll'
 import { fetchBooks } from '../../../services/books'
 import generateUniqueKey from '../../../utils/uniqueKey'
+import { useSearchParams } from 'react-router-dom'
+import { AxiosError, CancelToken, CancelTokenSource } from 'axios'
 
 interface IListing {
     genre?: string
@@ -23,7 +25,9 @@ const Listing: FC<IListing> = ({ genre }) => {
 
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
-    const [hasError, setError] = useState<null | string>(null)
+    const [searchQuery] = useSearchParams();
+    const search = searchQuery.get('search');
+
 
     const handleBookSelect = useCallback((book: FetchBookResponse.Book) => {
         if (book.formats['application/pdf']) {
@@ -37,31 +41,33 @@ const Listing: FC<IListing> = ({ genre }) => {
         }
     }, []);
 
-
-    const fetchMoreBooks = useCallback(async (page: number) => {
+    const fetchMoreBooks = async (page: number) => {
+        console.log(page , 'search on dependancy useCallback')
         try {
             setLoading(true);
-            const response = await fetchBooks(genre || '', page);
+            const response = await fetchBooks(genre || '', search, page);
             setLoading(false);
             if (response?.results.length === 0) {
                 setHasMore(false);
             }
             return response.results;
         } catch (error) {
-            setError(((error) as Error).message)
+            if(((error) as AxiosError).status == 404){
+                setHasMore(false);
+                setLoading(false);
+            }
             return [];
         }
-    }, []);
+    };
 
-    if (hasError) {
-        return <h5>{hasError || `Some Error Occuerd while Fetching data`}</h5>
-    }
+ 
 
     return <ListingContainer>
         <InfiniteScroll
             fetchData={fetchMoreBooks}
             hasMore={hasMore}
             loading={loading}
+            reset={search}
         >
             {(books) => (
                 <GridContainer desktopColumns={6} tabletColumns={4} mobileColumns={3}>
@@ -70,9 +76,10 @@ const Listing: FC<IListing> = ({ genre }) => {
                             <Book book={book} onBookSelect={handleBookSelect} />
                         </GridItem>
                     ))}
-                    {(loading && books === null) ? <p>Loading books... </p> : loading ? 
-                    <p>Loading More Books...</p>:<></>
-                }
+
+                    {(loading && books === null) ? <p>Loading books... </p> : loading ?
+                        <p>Loading More Books...</p> : <></>
+                    }
                 </GridContainer>
             )}
 
