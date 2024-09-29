@@ -1,4 +1,3 @@
-// src/components/Grid.tsx
 import styled from 'styled-components';
 
 // GridContainer to define grid layout;
@@ -15,7 +14,6 @@ interface IGridContainer {
 const shouldForwardProp = (prop: string) =>
   !['desktopColumns', 'tabletColumns', 'mobileColumns', 'gap'].includes(prop);
 
-// src/components/Grid.tsx
 export const GridContainer = styled.div.withConfig({ shouldForwardProp })<IGridContainer>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.desktopColumns || 12}, 1fr);

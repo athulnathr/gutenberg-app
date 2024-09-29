@@ -45,7 +45,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      handleScroll.cancel(); // Optional: If you create a cancel method
+      handleScroll.cancel(); // Cancel the Debounce. Beneficial for Detaching the Listener
     };
   }, []);
 
