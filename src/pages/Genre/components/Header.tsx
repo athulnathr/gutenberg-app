@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { BodyText as Text, H1 } from "../../components/Typography";
-import Container from "../../components/Grid/Container";
+import { BodyText as Text, H1 } from "../../../components/Typography";
+import Container from "../../../components/Grid/Container";
 
 
 const GenreHeaderStyles = styled.div`

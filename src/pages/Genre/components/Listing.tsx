@@ -1,8 +1,10 @@
 import React from 'react'
 import styled from 'styled-components';
-import Container from '../../components/Grid/Container';
-import { BOOK_TYPES } from '../../constants/bookTypes';
-import { GridContainer, GridItem } from '../../components/Grid';
+import Container from '../../../components/Grid/Container';
+import { BOOK_TYPES } from '../../../constants/bookTypes';
+import { GridContainer, GridItem } from '../../../components/Grid';
+import { useNavigate } from 'react-router-dom';
+import paths from '../../../constants/paths';
 
 
 const GenreListingStyles = styled.div`
@@ -33,9 +35,9 @@ const ButtonIcon = styled.span`
 `
 
 const GenreListing = () => {
-    
-    const handleSelectBookType = (bookId:string) => {
-        console.log(bookId)
+    const navigate = useNavigate();
+    const handleSelectBookType = (genre:string) => {
+        navigate(paths.books(genre))
     }
 
     return <GenreListingStyles>
