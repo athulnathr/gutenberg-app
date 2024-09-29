@@ -38,17 +38,17 @@ const BookTitle = styled.h3`
 `
 
 interface IBook {
-    book:FetchBookResponse.Book,
-    onBookSelect:(book:FetchBookResponse.Book) => void;
+    book: FetchBookResponse.Book,
+    onBookSelect: (book: FetchBookResponse.Book) => void;
 }
-const Book:FC<IBook> = ({book , onBookSelect}) => {
+const Book: FC<IBook> = ({ book, onBookSelect }) => {
 
     return (
-       <BookItem onClick={() => onBookSelect(book)}>
-        <BookImage> <img src={book.formats['image/jpeg']}  alt={`${book.title}-image`}/> </BookImage>
-        <BookTitle>{book.title}</BookTitle>
-        <AuthorName>{book.authors?.[0].name}</AuthorName>
-       </BookItem>
+        <BookItem onClick={() => onBookSelect(book)}>
+            <BookImage> <img src={book.formats['image/jpeg']} alt={`${book.title}-image`} /> </BookImage>
+            <BookTitle>{book.title}</BookTitle>
+            <AuthorName>{book.authors?.[0]?.name}</AuthorName>
+        </BookItem>
     )
 
 }

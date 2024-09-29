@@ -3,7 +3,7 @@ import { FetchBookResponse } from '../types/Books';
 
 const BASE_URL = 'http://skunkworks.ignitesol.com:8000';
 
-export const fetchBooksByGenre= async (genre: string, page: number = 1):Promise<FetchBookResponse.Root>  => {
+export const fetchBooks= async (genre: string, page: number = 1):Promise<FetchBookResponse.Root>  => {
   try {
     const response = await axios.get<FetchBookResponse.Root>(`${BASE_URL}/books`, {
       params: {
