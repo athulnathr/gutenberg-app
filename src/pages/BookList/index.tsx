@@ -22,13 +22,13 @@ const BookList = () => {
 
 
     return <div>
-        <Container>
-            <Header>
+        <Header>
+            <Container>
                 <NavBar />
                 <SearchComponent />
-            </Header>
-            <Listing books={books?.results} loading={loading} error={error} />
-        </Container>
+            </Container>
+        </Header>
+        <Listing books={books?.results} loading={loading} error={error} />
 
 
     </div>
