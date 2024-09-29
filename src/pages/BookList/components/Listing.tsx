@@ -21,7 +21,6 @@ const ListingContainer = styled(Container)`
 
 const Listing: FC<IListing> = ({ genre }) => {
 
-
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
     const [hasError, setError] = useState<null | string>(null)
@@ -71,7 +70,9 @@ const Listing: FC<IListing> = ({ genre }) => {
                             <Book book={book} onBookSelect={handleBookSelect} />
                         </GridItem>
                     ))}
-                    {loading && <p>Loading more books... </p>}
+                    {(loading && books === null) ? <p>Loading books... </p> : loading ? 
+                    <p>Loading More Books...</p>:<></>
+                }
                 </GridContainer>
             )}
 
