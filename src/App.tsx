@@ -1,11 +1,22 @@
-import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import GenrePage from './pages/Genre';
+import BookListPage from './pages/BookList';
+import { GlobalStyle } from './styles/GlobalStyles';
 
 function App() {
   return (
-    <div className="App">
-      <h4>First Page</h4>
-    </div>
+    <>
+    <GlobalStyle/>
+    <Router>
+      <Routes>
+        <Route path="/" element={<GenrePage />} />
+        <Route path="/books/:genre" element={<BookListPage />} />
+      </Routes>
+    </Router>
+    
+    </>
   );
 }
+
 
 export default App;
