@@ -11,8 +11,12 @@ interface IGridContainer {
   gap?: string;
 }
 
+
+const shouldForwardProp = (prop: string) =>
+  !['desktopColumns', 'tabletColumns', 'mobileColumns', 'gap'].includes(prop);
+
 // src/components/Grid.tsx
-export const GridContainer = styled.div<IGridContainer>`
+export const GridContainer = styled.div.withConfig({ shouldForwardProp })<IGridContainer>`
   display: grid;
   grid-template-columns: repeat(${(props) => props.desktopColumns || 12}, 1fr);
   gap: ${(props) => props.gap || '16px'};
