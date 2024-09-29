@@ -15,6 +15,8 @@ export const GlobalStyle = createGlobalStyle`
 
     --font-weight-regular:400;
     --font-weight-semi-bold:600;
+
+    --container-max-width:1200px;
   }
 
     *,
