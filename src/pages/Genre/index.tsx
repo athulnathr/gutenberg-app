@@ -7,8 +7,6 @@ import GenreListing from "./Listing";
 const GenreContainer = styled.div``;
 
 const Genre = () => {
-
-
     return <GenreContainer>
         <GenreHeader/>
         <GenreListing />

@@ -11,7 +11,7 @@ const GenreHeaderStyles = styled.div`
 
 const BodyText = styled(Text)`
     margin-top:0.5rem;
-`
+`;
 
 const GenreHeader = () => {
 

@@ -17,7 +17,7 @@ export const GridContainer = styled.div<IGridContainer>`
   grid-template-columns: repeat(${(props) => props.desktopColumns || 12}, 1fr);
   gap: ${(props) => props.gap || '16px'};
 
-  @media (max-width:${(props) => { console.log(props); return (props.theme.breakpoints.tablet)}}) {
+  @media (max-width:${(props) =>  (props.theme.breakpoints.tablet)}) {
     grid-template-columns: repeat(${(props) => props.tabletColumns || 8}, 1fr);
   }
 
