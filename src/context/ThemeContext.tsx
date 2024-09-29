@@ -1,10 +1,9 @@
-// src/context/ThemeContext.tsx
 import React, { createContext, useContext, useState } from 'react';
 import themes from '../styles/theme';
 import { ThemeProvider as Provider } from 'styled-components';
 const ThemeContext = createContext({
-  theme: themes.light, // default theme
-  toggleTheme: () => {}, // toggle function
+  theme: themes.light,
+  toggleTheme: () => {},
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

@@ -26,7 +26,6 @@ const NavBar = ({ genre = "" }: { genre?: string }) => {
     const navigate = useNavigate();
     const onBackPressed = () => {
         if (window.history.length > 1) {
-            console.log(window.history.length )
             navigate(-1); // Go back to the previous page
         } else {
             navigate(paths.home); // Redirect to home page if no history

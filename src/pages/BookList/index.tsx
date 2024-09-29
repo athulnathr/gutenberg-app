@@ -11,7 +11,7 @@ import Listing from "./components/Listing";
 const Header = styled.div`
 
   padding:5rem 1rem 2rem 1rem;
-    background:#f0f0f0;
+    background:${props => props.theme.background};
 `
 
 const BookList = () => {
@@ -19,11 +19,11 @@ const BookList = () => {
     return <div>
         <Header>
             <Container>
-                <NavBar />
+                <NavBar genre={genre}/>
                 <SearchComponent />
             </Container>
         </Header>
-        <Listing genre={genre}/>
+        <Listing genre={genre} />
 
 
     </div>

@@ -4,23 +4,29 @@ import styled from 'styled-components';
 // import { AiOutlineSearch } from 'react-icons/ai';
 // import { IoClose } from 'react-icons/io5';
 
-// Define the interface for props used in styled components
-interface SearchBoxProps {
-  isFocused: boolean;
-  hasText: boolean;
-}
-
-const SearchBox = styled.div<SearchBoxProps>`
+const SearchBox = styled.div`
   display: flex;
   align-items: center;
   padding: 0 10px;
-  border: 1px solid ${({ isFocused }) => (isFocused ? '#5a5af2' : '#ccc')};
+  border: 1px solid transparent;
   border-radius: 4px;
   height: 40px;
-  background-color: ${({ isFocused, hasText }) => 
-    isFocused || hasText ? '#f0f0f0' : '#fff'};
+   background-color:${props => props.theme.grey100};
+  margin-top:8px;
   transition: border-color 0.3s, background-color 0.3s;
+  &:focus-within {
+    border:1px solid ${props => props.theme.primary};
+i
+  }
+
+  input:not(:placeholder-shown) {
+    background-color:${props => props.theme.grey100};
+  }
 `;
+
+const SearchIcon = styled(AiOutlineSearch)`
+ color:${props => props.theme.grey500}
+ `
 
 const SearchInput = styled.input`
   flex: 1;
@@ -29,12 +35,15 @@ const SearchInput = styled.input`
   background: transparent;
   padding: 0 10px;
   font-size: 16px;
+  font-weight:${props => props.theme.fontWeights.semiBold};
+  letter-spacing:0.5px;
 `;
 
 const IconButton = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  color:${props => props.theme.grey500}
 `;
 
 const SearchComponent: React.FC = () => {
