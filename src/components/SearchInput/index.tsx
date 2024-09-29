@@ -47,20 +47,30 @@ const IconButton = styled.div`
 `;
 
 const SearchComponent: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [searchParam,setSearchParam] = useSearchParams();
+  const [inputValue, setInputValue] = useState<string>(searchParam.get('search') || '');
+
+
+  const pushToParams = useCallback(debounce((value: string) => {
+    setSearchParam({search:(value)})
+  }, 200),[]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const value = e.target.value;
+    setInputValue(value); 
+    pushToParams(value);
   };
 
   const clearInput = () => {
     setInputValue('');
+    pushToParams.cancel();
+    setSearchParam()
   };
 
+
   return (
-    <SearchBox isFocused={isFocused} hasText={!!inputValue}>
-      {/* <AiOutlineSearch /> */}
+    <SearchBox>
+      <SearchIcon />
       <SearchInput
         type="text"
         placeholder="Search"
@@ -71,7 +81,7 @@ const SearchComponent: React.FC = () => {
       />
       {inputValue && (
         <IconButton onClick={clearInput}>
-          {/* <IoClose /> */}
+          <IoClose />
         </IconButton>
       )}
     </SearchBox>
