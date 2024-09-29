@@ -20,10 +20,10 @@ const ListingContainer = styled(Container)`
 
 const Listing: FC<IListing> = ({ genre }) => {
 
-    
+
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
-
+    const [hasError , setError] = useState<null | string>(null) 
 
     const handleBookSelect = useCallback((book: FetchBookResponse.Book) => {
         console.log(book)
@@ -31,15 +31,23 @@ const Listing: FC<IListing> = ({ genre }) => {
 
 
     const fetchMoreBooks = useCallback(async (page: number) => {
-        setLoading(true);
-        const response = await fetchBooks(genre || '', page);
-        setLoading(false);
-        if (response?.results.length === 0) {
-            setHasMore(false);
+        try {
+            setLoading(true);
+            const response = await fetchBooks(genre || '', page);
+            setLoading(false);
+            if (response?.results.length === 0) {
+                setHasMore(false);
+            }
+            return response.results;
+        } catch (error) {
+            setError(((error) as Error).message)
+            return [];
         }
-        return response.results;
     }, [genre]);
 
+    if(hasError){
+        return <h5>{hasError || `Some Error Occuerd while Fetching data`}</h5>
+    }
 
     return <ListingContainer>
         <InfiniteScroll
