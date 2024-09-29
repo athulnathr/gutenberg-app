@@ -20,6 +20,7 @@ export module FetchBookResponse {
         "text/html"?: string;
         "text/plain"?: string;
         "text/plain; charset=us-ascii"?: string;
+        'application/pdf'?:string,
       }
 
       export interface Root {

@@ -6,6 +6,7 @@ import Container from '../../../components/Grid/Container'
 import styled from 'styled-components'
 import InfiniteScroll from '../../../components/InfiniteScroll'
 import { fetchBooks } from '../../../services/books'
+import generateUniqueKey from '../../../utils/uniqueKey'
 
 interface IListing {
     genre?: string
@@ -23,10 +24,18 @@ const Listing: FC<IListing> = ({ genre }) => {
 
     const [hasMore, setHasMore] = useState<boolean>(true);
     const [loading, setLoading] = useState<boolean>(false);
-    const [hasError , setError] = useState<null | string>(null) 
+    const [hasError, setError] = useState<null | string>(null)
 
     const handleBookSelect = useCallback((book: FetchBookResponse.Book) => {
-        console.log(book)
+        if (book.formats['application/pdf']) {
+            window.open(book.formats['application/pdf']);
+        } else if (book.formats['text/html']) {
+            window.open(book.formats['text/html']);
+        } else if (book.formats['text/plain']) {
+            window.open(book.formats['text/plain']);
+        } else {
+            alert('No viewable version available');
+        }
     }, []);
 
 
@@ -43,9 +52,9 @@ const Listing: FC<IListing> = ({ genre }) => {
             setError(((error) as Error).message)
             return [];
         }
-    }, [genre]);
+    }, []);
 
-    if(hasError){
+    if (hasError) {
         return <h5>{hasError || `Some Error Occuerd while Fetching data`}</h5>
     }
 
@@ -58,11 +67,11 @@ const Listing: FC<IListing> = ({ genre }) => {
             {(books) => (
                 <GridContainer desktopColumns={6} tabletColumns={4} mobileColumns={3}>
                     {books.map((book) => (
-                        <GridItem key={`${book.id}-listing`}>
+                        <GridItem key={generateUniqueKey()}>
                             <Book book={book} onBookSelect={handleBookSelect} />
                         </GridItem>
                     ))}
-                    {loading && <p>Loading...</p>}
+                    {loading && <p>Loading more books... </p>}
                 </GridContainer>
             )}
 
