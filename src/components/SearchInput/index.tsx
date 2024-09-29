@@ -1,8 +1,9 @@
-// SearchComponent.tsx
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import { AiOutlineSearch } from 'react-icons/ai';
-// import { IoClose } from 'react-icons/io5';
+import { AiOutlineSearch } from 'react-icons/ai';
+import { IoClose } from 'react-icons/io5';
+import debounce from '../../utils/debounce';
+import { useSearchParams } from 'react-router-dom';
 
 const SearchBox = styled.div`
   display: flex;
@@ -76,8 +77,6 @@ const SearchComponent: React.FC = () => {
         placeholder="Search"
         value={inputValue}
         onChange={handleInputChange}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
       />
       {inputValue && (
         <IconButton onClick={clearInput}>
