@@ -12,6 +12,7 @@ import { AxiosError, CancelToken, CancelTokenSource } from 'axios'
 import Shimmer from '../../../components/Shimmer'
 import ShimmerCard from '../../../components/Shimmer'
 import LoadingAnimation from './Loading'
+import NotFound from './NotFound'
 
 interface IListing {
     genre?: string
@@ -73,15 +74,15 @@ const Listing: FC<IListing> = ({ genre }) => {
             reset={search}
         >
             {(books) => (
-                <GridContainer desktopColumns={6} tabletColumns={4} mobileColumns={3}>
-                    {books.map((book) => (
-                        <GridItem key={generateUniqueKey()}>
-                            <Book book={book} onBookSelect={handleBookSelect} />
-                        </GridItem>
-                    ))}
-
-                    {loading ? <LoadingAnimation /> : <></>}
-                </GridContainer>
+                (books.length == 0 && !loading) ? <NotFound /> :
+                    <GridContainer desktopColumns={6} tabletColumns={4} mobileColumns={3}>
+                        {books.map((book) => (
+                            <GridItem key={generateUniqueKey()}>
+                                <Book book={book} onBookSelect={handleBookSelect} />
+                            </GridItem>
+                        ))}
+                        {loading ? <LoadingAnimation /> : <></>}
+                    </GridContainer>
             )}
 
         </InfiniteScroll>
