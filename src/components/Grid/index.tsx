@@ -7,7 +7,10 @@ interface IGridContainer {
   desktopColumns?: number;
   tabletColumns?: number;
   mobileColumns?: number;
-  gap?: string;
+  gap?: {
+    x:number,
+    y:number
+  };
 }
 
 

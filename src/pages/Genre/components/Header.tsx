@@ -5,8 +5,8 @@ import Container from "../../../components/Grid/Container";
 
 
 const GenreHeaderStyles = styled.div`
-    padding:5rem 1rem 2rem 1rem;
-    background:#f0f0f0;
+    padding:70px 16px 16px 20px;
+    background:  ${props => props.theme.background};
 `
 
 const BodyText = styled(Text)`

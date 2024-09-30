@@ -23,7 +23,8 @@ const lightTheme = {
     grey100:"#F0F0F6",
     grey500:"#A0A0A0",
     grey900:"#333333",
-    background:"#FEFEFE"
+    background:"#F7F6FE",
+    
 }
 
 const darkTheme = {

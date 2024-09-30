@@ -9,6 +9,9 @@ import { fetchBooks } from '../../../services/books'
 import generateUniqueKey from '../../../utils/uniqueKey'
 import { useSearchParams } from 'react-router-dom'
 import { AxiosError, CancelToken, CancelTokenSource } from 'axios'
+import Shimmer from '../../../components/Shimmer'
+import ShimmerCard from '../../../components/Shimmer'
+import LoadingAnimation from './Loading'
 
 interface IListing {
     genre?: string
@@ -42,7 +45,7 @@ const Listing: FC<IListing> = ({ genre }) => {
     }, []);
 
     const fetchMoreBooks = async (page: number) => {
-        console.log(page , 'search on dependancy useCallback')
+        console.log(page, 'search on dependancy useCallback')
         try {
             setLoading(true);
             const response = await fetchBooks(genre || '', search, page);
@@ -52,7 +55,7 @@ const Listing: FC<IListing> = ({ genre }) => {
             }
             return response.results;
         } catch (error) {
-            if(((error) as AxiosError).status == 404){
+            if (((error) as AxiosError).status == 404) {
                 setHasMore(false);
                 setLoading(false);
             }
@@ -60,7 +63,7 @@ const Listing: FC<IListing> = ({ genre }) => {
         }
     };
 
- 
+
 
     return <ListingContainer>
         <InfiniteScroll
@@ -77,9 +80,7 @@ const Listing: FC<IListing> = ({ genre }) => {
                         </GridItem>
                     ))}
 
-                    {(loading && books === null) ? <p>Loading books... </p> : loading ?
-                        <p>Loading More Books...</p> : <></>
-                    }
+                    {loading ? <LoadingAnimation /> : <></>}
                 </GridContainer>
             )}
 

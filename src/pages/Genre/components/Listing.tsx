@@ -5,38 +5,49 @@ import { BOOK_TYPES } from '../../../constants/bookTypes';
 import { GridContainer, GridItem } from '../../../components/Grid';
 import { useNavigate } from 'react-router-dom';
 import paths from '../../../constants/paths';
+import { FaArrowRight } from "react-icons/fa";
 
 
 const GenreListingStyles = styled.div`
-    background:var(--grey-100);
+    background:${props => props.theme.background};
     padding:16px;
+    height:100%;
 `;
 
 const Button = styled.button`
-    padding: 0 10px;
+    padding: 11px 10px;
     border-radius:4px;
-   
+    display:flex;
+    justify-content:space-between;
     outline:none;
-    background:var(--secondary-color);
+    background:${props => props.theme.secondary};
     border:none;
     width:100%;
     font-size:20px;
-    font-weight:var(--font-weight-regular);
+    font-weight:${props => props.theme.fontWeights.semiBold};
     text-transform:uppercase;
     cursor:pointer;
-    box-shadow: 0 2px 5px 0 rgba(211, 209, 238, 0.5);
+    box-shadow: 0 2px 5px 0 rgba(211, 209, 238, 0.5);\
+    line-height:1;
+    margin:16px;
+   
 `;
 
 const ButtonIcon = styled.span`
-    width:10px;
-    height:10px;
-    margin-right:5px;
+    margin-right:8px;
+    font-size:1.2em;
     color:${(props) => props.theme.primary}
+`
+
+const RightElements = styled.span`
+    display:flex;
+    align-items:center
+
 `
 
 const GenreListing = () => {
     const navigate = useNavigate();
-    const handleSelectBookType = (genre:string) => {
+    const handleSelectBookType = (genre: string) => {
         navigate(paths.books(genre))
     }
 
@@ -47,9 +58,11 @@ const GenreListing = () => {
                 {
                     BOOK_TYPES?.map((book) => <GridItem key={book.id}>
                         <Button onClick={() => handleSelectBookType(book.id)}>
-                            <ButtonIcon>{<book.icon/>}</ButtonIcon>
-                            {book.label}
-                            <ButtonIcon>I</ButtonIcon>
+                            <RightElements>
+                                <ButtonIcon>{<book.icon />}</ButtonIcon>
+                                {book.label}
+                            </RightElements>
+                            <ButtonIcon><FaArrowRight/></ButtonIcon>
                         </Button>
                     </GridItem>)
                 }
