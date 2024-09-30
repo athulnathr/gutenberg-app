@@ -1,4 +1,3 @@
-import React from 'react';
 import { H1 } from '../../../components/Typography';
 import styled from 'styled-components';
 import { IoArrowBack } from "react-icons/io5";

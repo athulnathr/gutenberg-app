@@ -8,9 +8,7 @@ import InfiniteScroll from '../../../components/InfiniteScroll'
 import { fetchBooks } from '../../../services/books'
 import generateUniqueKey from '../../../utils/uniqueKey'
 import { useSearchParams } from 'react-router-dom'
-import { AxiosError, CancelToken, CancelTokenSource } from 'axios'
-import Shimmer from '../../../components/Shimmer'
-import ShimmerCard from '../../../components/Shimmer'
+import { AxiosError} from 'axios'
 import LoadingAnimation from './Loading'
 import NotFound from './NotFound'
 
@@ -46,7 +44,6 @@ const Listing: FC<IListing> = ({ genre }) => {
     }, []);
 
     const fetchMoreBooks = async (page: number) => {
-        console.log(page, 'search on dependancy useCallback')
         try {
             setLoading(true);
             const response = await fetchBooks(genre || '', search, page);

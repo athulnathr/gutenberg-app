@@ -1,8 +1,5 @@
-import React from "react";
 import { useParams } from 'react-router-dom';
 import NavBar from "./components/NavBar";
-import { fetchBooks } from "../../services/books";
-import useFetch from "../../hooks/useFetch";
 import SearchComponent from "../../components/SearchInput";
 import Container from "../../components/Grid/Container";
 import styled from "styled-components";
